@@ -208,8 +208,6 @@ with strategy.scope():
         # return K.concatenate([loss1a, loss2a, loss3, loss4])
 
 
-
-
     # metrics for each part of interest - useful for debugging
     def wasd_acc(y_true, y_pred):
         return keras.metrics.binary_accuracy(y_true[:,:,0:4], y_pred[:,:,0:4])

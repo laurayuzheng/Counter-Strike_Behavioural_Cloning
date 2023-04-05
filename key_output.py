@@ -40,6 +40,7 @@ under_char=0x0C # actually minus, use in combo w shift for underscore
 cons_char=0x29
 ret_char=0x1C
 esc_char=0x01
+f3_char=0x3D
 
 class KeyBdInput(ctypes.Structure):
     _fields_ = [("wVk", ctypes.c_ushort),

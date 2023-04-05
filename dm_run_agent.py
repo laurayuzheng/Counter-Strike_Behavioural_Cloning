@@ -31,7 +31,7 @@ from key_output import w_char, s_char, a_char, d_char, n_char, q_char, b_char
 from key_output import ctrl_char, shift_char, space_char
 from key_output import r_char, one_char, two_char, three_char, four_char
 from key_output import p_char, e_char, c_char_, t_char, cons_char, ret_char
-from key_output import m_char, u_char, under_char, g_char, esc_char
+from key_output import m_char, u_char, under_char, g_char, esc_char, f3_char
 from key_output import i_char, v_char, o_char, g_char, k_char, seven_char, x_char, c_char2, y_char
 
 from tensorflow import keras
@@ -41,13 +41,19 @@ import tensorflow.keras.backend as K
 from screen_input import grab_window
 from config import *
 
+
+import win32com.client
+shell = win32com.client.Dispatch("WScript.Shell")
+shell.SendKeys('%')
+
+
 # this script applies a trained NN in a deathmatch environment
 
 # select the game window
 print('selecting the game window...')
 hwin_orig = win32gui.GetForegroundWindow() # remember original window
 # hwin_csgo = win32gui.FindWindow(None,'Counter-Strike: Global Offensive')
-hwin_csgo = win32gui.FindWindow(None,'Counter-Strike: Global Offensive - Direct3d 9') # as of Feb 2022
+hwin_csgo = win32gui.FindWindow(None,'Counter-Strike: Global Offensive - Direct3D 9') # as of Feb 2022
 win32gui.SetForegroundWindow(hwin_csgo)
 time.sleep(1)
 
@@ -95,7 +101,7 @@ IS_PROBABILISTIC_ACTIONS = True # TODO, only set for left click atm
 ENT_REG = 0.05 # entropy regularisation
 N_FILES_RESTART = 500 # how many files to save (of 1000 frames) before map restart
 SAVE_TRAIN_DATA=False # whether to actually save the files and do training
-IS_DEMO=False # show agent vision with overlay
+IS_DEMO=True # show agent vision with overlay
 IS_GSI=False # whether to extract kill, death and aux info using GSI (must be set up on your machine)
 
 
@@ -119,18 +125,32 @@ def mp_restartgame():
         time.sleep(0.1)
 
     time.sleep(3)
+    HoldKey(f3_char)
+    ReleaseKey(f3_char)
+    time.sleep(0.1)
+
+    HoldKey(f3_char)
+    ReleaseKey(f3_char)
+    time.sleep(0.1)
+    
+    # # should try to buy ak47
+    # for c in [cons_char,g_char,i_char,v_char,e_char, space_char, 
+    #          w_char, e_char, a_char, p_char, o_char, n_char, under_char, a_char, k_char, four_char, seven_char,   ret_char,cons_char,esc_char,esc_char]:
+    #     # type give weapon_ak47
+    #     if c == under_char:
+    #         HoldKey(shift_char)
+    #         HoldKey(under_char)
+    #         ReleaseKey(under_char)
+    #         ReleaseKey(shift_char)
+    #     else:
+    #         HoldKey(c)
+    #         ReleaseKey(c)
+    #     time.sleep(0.1)
+
     # should try to buy ak47
-    for c in [cons_char,g_char,i_char,v_char,e_char, space_char, 
-             w_char, e_char, a_char, p_char, o_char, n_char, under_char, a_char, k_char, four_char, seven_char,   ret_char,cons_char,esc_char,esc_char]:
-        # type give weapon_ak47
-        if c == under_char:
-            HoldKey(shift_char)
-            HoldKey(under_char)
-            ReleaseKey(under_char)
-            ReleaseKey(shift_char)
-        else:
-            HoldKey(c)
-            ReleaseKey(c)
+    for c in [b_char, four_char, two_char, one_char]:
+        HoldKey(c)
+        ReleaseKey(c)
         time.sleep(0.1)
 
     return

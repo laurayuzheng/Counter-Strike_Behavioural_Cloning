@@ -117,7 +117,8 @@ def fps_capture_test():
 
     time_start = time.time()
     n_grabs=20000
-    hwin = win32gui.FindWindow(None,'Counter-Strike: Global Offensive')
+    # hwin = win32gui.FindWindow(None,'Counter-Strike: Global Offensive')
+    hwin = win32gui.FindWindow(None,'Counter-Strike: Global Offensive - Direct3D 9')
     for i in range(n_grabs):
         img_small = grab_window(hwin, game_resolution=(1024,768), SHOW_IMAGE=False)
 
